@@ -35,10 +35,10 @@ void put_block(LRUCache *cache, const char *block_id, char *data, size_t size, u
     for (int i = 0; i < cache->count; i++) {
         if (strcmp(cache->blocks[i]->block_id, block_id) == 0) {
             if (cache->blocks[i]->access_rights != access_rights) {
-                printf("⚠️  Права изменились, блок %s инвалидирован\n", block_id);
+                printf("Права изменились, блок %s инвалидирован\n", block_id);
                 invalidate_block(cache, block_id);
             } else {
-                printf("♻️  Блок %s перезаписан без изменений прав\n", block_id);
+                printf("Блок %s перезаписан без изменений прав\n", block_id);
             }
             pthread_mutex_unlock(&cache->lock);
             return;
@@ -46,7 +46,7 @@ void put_block(LRUCache *cache, const char *block_id, char *data, size_t size, u
     }
 
     if (cache->count >= CACHE_CAPACITY) {
-        printf("❗ Кэш полон, удаляем старый блок %s\n", cache->blocks[0]->block_id);
+        printf("Кэш полон, удаляем старый блок %s\n", cache->blocks[0]->block_id);
         free(cache->blocks[0]->data);
         free(cache->blocks[0]);
         for (int i = 1; i < cache->count; i++)
@@ -65,7 +65,7 @@ void put_block(LRUCache *cache, const char *block_id, char *data, size_t size, u
     block->valid = 1;
 
     cache->blocks[cache->count++] = block;
-    printf("💾 Блок %s добавлен в кэш (шифр XOR 0x%02X, права 0x%X)\n", block_id, xor_key, access_rights);
+    printf("Блок %s добавлен в кэш (шифр XOR 0x%02X, права 0x%X)\n", block_id, xor_key, access_rights);
 
     pthread_mutex_unlock(&cache->lock);
 }
