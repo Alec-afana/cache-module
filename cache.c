@@ -23,7 +23,7 @@ void invalidate_block(LRUCache *cache, const char *block_id) {
     for (int i = 0; i < cache->count; i++) {
         if (strcmp(cache->blocks[i]->block_id, block_id) == 0) {
             cache->blocks[i]->valid = 0;
-            printf("🧹 Блок %s инвалидирован\n", block_id);
+            printf("Блок %s инвалидирован\n", block_id);
             return;
         }
     }
